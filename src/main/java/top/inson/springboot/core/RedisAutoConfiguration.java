@@ -14,6 +14,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 @Configuration
 @ConditionalOnClass(RedisOperations.class)
 @EnableConfigurationProperties(RedisProperties.class)
+//@Import({ LettuceConnectionConfiguration.class, JedisConnectionConfiguration.class })
 public class RedisAutoConfiguration {
 
 
