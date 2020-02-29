@@ -1,0 +1,10 @@
+spring:
+  profiles: dev
+  redis:
+    #redis数据库索引（默认为0）
+    database: 0
+    host: 10.10.21.89
+    port: 6379
+    password:
+
+
