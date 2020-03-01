@@ -1,5 +1,6 @@
 package top.inson.springboot;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import lombok.extern.log4j.Log4j2;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +19,14 @@ public class ApplicationTest {
     private RedisTemplate redisTemplate;
     @Autowired
     private RedisUtil redisUtil;
+    @Autowired
+    private DruidDataSource druidDataSource;
+
+
+    @Test
+    public void testDataSource(){
+        log.info("数据源：" + druidDataSource);
+    }
 
 
     @Test

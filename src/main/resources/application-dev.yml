@@ -6,5 +6,12 @@ spring:
     host: 10.10.21.89
     port: 6379
     password:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://10.10.21.89:3307/start?characterEncoding=utf-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
 
-
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

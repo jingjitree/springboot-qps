@@ -3,7 +3,6 @@ server:
   servlet:
     context-path: /springboot_qps
 
-
 spring:
   profiles:
     active: @profiles.active@
@@ -19,4 +18,35 @@ spring:
       min-idle: 0
     #连接超时时间（毫秒）
     timeout: 5000
+  datasource:
+    initialSize: 5
+    minIdle: 1
+    maxActive: 50
+    maxWait: 60000
+    timeBetweenEvictionRunsMills: 60000
+    minEvictableIdleTimeMills: 300000
+    validationQuery: select 1 from dual
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: false
+    filters: stat,wall
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    useGlobalDataSourceStat: true
+    type: com.alibaba.druid.pool.DruidDataSource
 
+#mybatisPlus配置
+mybatis-plus:
+  mapper-locations: classpath:top/inson/springboot/dao/mappers/*.xml
+  #实体bean扫描
+  type-aliases-package: top.inson.springboot.entity
+  global-config:
+    #主键类型 0：数据库id自增 1.用户输入id 2.全局唯一（数字类型唯一id） 3.全局唯一id UUID
+    id-type: 0
+    #字段策略 0：忽略判断 1.非null判断 2.非空判断
+    field-strategy: 1
+
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    jdbc-type-for-null: 'null'
