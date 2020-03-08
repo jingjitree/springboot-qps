@@ -5,6 +5,8 @@ import com.google.common.base.CharMatcher;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.base.Stopwatch;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.*;
 import lombok.extern.log4j.Log4j2;
 import org.junit.Test;
@@ -76,6 +78,15 @@ public class GuavaTest {
         long seconds = stopwatch.elapsed(TimeUnit.SECONDS);
         log.info("second:" + seconds);
     }
+
+    @Test
+    public void guavaCache(){
+        Cache<Object, Object> cache = CacheBuilder.newBuilder().build();
+        cache.put("key", "abcdefg123456");
+        log.info("缓存中取值key：" + cache.getIfPresent("key"));
+
+    }
+
 
 
 }
