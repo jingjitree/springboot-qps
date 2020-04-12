@@ -93,6 +93,22 @@ public final class RedisUtil {
         return key == null ? null : redisTemplate.opsForValue().get(key);
     }
 
+    public boolean setNx(String key, String value, Integer expireTime, TimeUnit timeUnit){
+        try {
+            if(expireTime == null)
+                redisTemplate.opsForValue().setIfAbsent(key, value);
+            else
+                redisTemplate.opsForValue().setIfAbsent(key, value, expireTime, timeUnit);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean setNx(String key, String value){
+        return setNx(key, value, null, null);
+    }
 
     /**
      * 普通缓存放入
