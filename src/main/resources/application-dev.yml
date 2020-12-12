@@ -2,15 +2,15 @@ spring:
   profiles: dev
   redis:
     #redis数据库索引（默认为0）
-    database: 0
-    host: 10.10.21.89
-    port: 6379
+    database: 1
     password:
+    address: redis://192.168.1.30:6379
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://10.10.21.89:3307/start?characterEncoding=utf-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
+    url: jdbc:mysql://192.168.1.30:3306/start?characterEncoding=utf-8&useSSL=false&useTimezone=true&serverTimezone=GMT%2B8
     username: root
-    password: 123456
+    password: shihuai1993A
 
 mybatis-plus:
   configuration:
