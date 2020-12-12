@@ -297,6 +297,16 @@ public final class RedisUtil {
         }
     }
 
+    public boolean hsetNx(String key, String item, Object value){
+        try {
+            redisTemplate.opsForHash().putIfAbsent(key, item, value);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
     /**
      * 删除hash表中的值

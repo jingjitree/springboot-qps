@@ -2,11 +2,11 @@ package top.inson.springboot;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang.RandomStringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 import top.inson.springboot.utils.RedisUtil;
 
@@ -15,8 +15,6 @@ import top.inson.springboot.utils.RedisUtil;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ApplicationTest {
-    @Autowired
-    private RedisTemplate redisTemplate;
     @Autowired
     private RedisUtil redisUtil;
     @Autowired
@@ -31,10 +29,30 @@ public class ApplicationTest {
 
     @Test
     public void testRedis(){
-        //log.info("redisTemplate:"+redisTemplate);
-        redisUtil.set("username","jingjitree");
-        Object username = redisUtil.get("username");
+        redisUtil.set("username", "jingjitree");
+        String username = String.valueOf(redisUtil.get("username111"));
         log.info("用户名" + username);
+    }
+
+    @Test
+    public void testHash(){
+        String orderId = RandomStringUtils.random(16, false, true);
+        String merchantId = RandomStringUtils.random(8, false, true);
+        String key = orderId + ":" + merchantId,
+                item = "balance",
+                value = "9.99";
+        redisUtil.hset(key, item, value);
+        String redisVal = (String) redisUtil.hget(key, item);
+        log.info("redisVal:" + redisVal);
+        String orderIdOld = "0478597569502596",
+                merchantIdOld = "71630510",
+                value2 = "10.96";
+        String keyOld = orderIdOld + ":" + merchantIdOld;
+
+        redisUtil.hsetNx(keyOld, item, value2);
+        String oldVal = (String) redisUtil.hget(keyOld, item);
+        log.info("oldVal:" + oldVal);
+
     }
 
 

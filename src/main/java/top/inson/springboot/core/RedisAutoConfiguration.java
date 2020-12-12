@@ -23,6 +23,10 @@ public class RedisAutoConfiguration {
 
 
     @Bean
+    /*
+    作用在@Bean定义上，它的作用就是在容器加载它作用的bean时，检查容器中是否存在目标类型（ConditionalOnMissingBean注解的value值）
+    的bean了，如果存在就跳过原始bean的BeanDefinition加载动作
+     */
     @ConditionalOnMissingBean(name = "redisTemplate")
     public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory){
         StringRedisTemplate template = new StringRedisTemplate(factory);
