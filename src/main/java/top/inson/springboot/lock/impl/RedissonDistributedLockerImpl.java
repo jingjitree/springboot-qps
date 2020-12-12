@@ -46,11 +46,15 @@ public class RedissonDistributedLockerImpl implements IDistributedLocker {
     @Override
     public void unlock(String lockKey) {
         RLock lock = redissonClient.getLock(lockKey);
+        if (!lock.isLocked())
+            return;
         lock.unlock();
     }
 
     @Override
     public void unlock(RLock lock) {
+        if (!lock.isLocked())
+            return;
         lock.unlock();
     }
 
