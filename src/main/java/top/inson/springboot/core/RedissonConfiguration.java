@@ -9,6 +9,9 @@ import org.redisson.config.SingleServerConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import top.inson.springboot.lock.IDistributedLocker;
+import top.inson.springboot.lock.impl.RedissonDistributedLockerImpl;
+import top.inson.springboot.utils.RedissonLockUtil;
 
 @Setter
 @Configuration
@@ -24,7 +27,7 @@ public class RedissonConfiguration {
 
 
     @Bean
-    public RedissonClient redissonClient(){
+    RedissonClient redissonClient(){
         Config config = new Config();
         SingleServerConfig serverConfig = config.useSingleServer();
         serverConfig.setAddress(address)
@@ -36,6 +39,13 @@ public class RedissonConfiguration {
     }
 
 
+    @Bean
+    IDistributedLocker distributedLocker(RedissonClient redissonClient){
+        IDistributedLocker locker = new RedissonDistributedLockerImpl();
+        ((RedissonDistributedLockerImpl)locker).setRedissonClient(redissonClient);
+        RedissonLockUtil.setRedisLocker(locker);
+        return locker;
+    }
 
 
 
